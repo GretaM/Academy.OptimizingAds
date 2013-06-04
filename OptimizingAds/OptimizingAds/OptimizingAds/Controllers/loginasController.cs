@@ -18,15 +18,22 @@ namespace OptimizingAds.Controllers
         [HttpPost]
         public ActionResult Ticketas(string ID, string Pasword)
         {
-            string username = ID;
-            string password = Pasword;
-            com.adform.api.LoginData wr = new com.adform.api.LoginData();
-            wr.UserName = username;
-            wr.Password = password;
-            com.adform.api.SecurityService atsakymas = new com.adform.api.SecurityService();
-            string key = atsakymas.Login(wr);
-            ViewBag.Message = key;
-            return View();
+            try
+            {
+                string username = ID;
+                string password = Pasword;
+                com.adform.api.LoginData wr = new com.adform.api.LoginData();
+                wr.UserName = username;
+                wr.Password = password;
+                com.adform.api.SecurityService atsakymas = new com.adform.api.SecurityService();
+                string key = atsakymas.Login(wr);
+                ViewBag.Message = key;
+                return View();
+            }
+            catch (Exception)
+            {
+                return View();
+            }
 
         }
 
