@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>Sveiki ID yra</p>
+<form id="form1"  method="POST" action="@Url.Action("Ticketas", "loginas")">
+
+    <table>
+        <tr>
+            <td class="first"><label title ="ID">ID</label></td>
+            <td class="second"><input id="IdBox" name="ID" /></td>
+        </tr>
+        <tr>
+           <td class="first"><label title ="Pasword">Pasword</label></td>
+           <td class="second"><input id="PaswordBox" name="Pasword" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit" />
+</form>
