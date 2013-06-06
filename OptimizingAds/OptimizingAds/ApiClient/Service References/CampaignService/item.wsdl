@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.adform.com/api/2010/06" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.adform.com/api/2010/06" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_ICampaignService_policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.adform.com/api/2010/06">
+      <s:element name="GetCampaignsData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="AdvertiserId" nillable="true" type="s:int" />
+            <s:element minOccurs="0" name="Ids" nillable="true" type="tns:IdCollection" />
+            <s:element minOccurs="0" name="Codes" nillable="true" type="tns:CodeCollection" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IdCollection">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IdCollection" nillable="true" type="tns:IdCollection" />
+      <s:complexType name="CodeCollection">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Code" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CodeCollection" nillable="true" type="tns:CodeCollection" />
+      <s:element name="Ticket" nillable="true" type="s:string" />
+      <s:complexType name="ArrayOfCampaign">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Campaign" nillable="true" type="tns:Campaign" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ArrayOfCampaign" nillable="true" type="tns:ArrayOfCampaign" />
+      <s:complexType name="Campaign">
+        <s:sequence>
+          <s:element minOccurs="0" name="Id" nillable="true" type="s:int" />
+          <s:element minOccurs="0" name="AdvertiserId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" name="Code" nillable="true" type="s:string" />
+          <s:element minOccurs="0" name="Name" nillable="true" type="s:string" />
+          <s:element minOccurs="0" name="StartDate" type="s:dateTime" />
+          <s:element minOccurs="0" name="EndDate" type="s:dateTime" />
+          <s:element minOccurs="0" name="ResponsibleUserId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" name="CoResponsibleUserId" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Campaign" nillable="true" type="tns:Campaign" />
+      <s:element name="Campaigns" nillable="true" type="tns:ArrayOfCampaign" />
+      <s:element name="CreateCampaignData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="Campaign" nillable="true" type="tns:Campaign" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FaultDetails">
+        <s:sequence>
+          <s:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfError" />
+          <s:element minOccurs="0" name="RefNo" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FaultDetails" nillable="true" type="tns:FaultDetails" />
+      <s:complexType name="ArrayOfError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Error" nillable="true" type="tns:Error" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ArrayOfError" nillable="true" type="tns:ArrayOfError" />
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="0" name="Message" nillable="true" type="s:string" />
+          <s:element minOccurs="0" name="FieldPath" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Error" nillable="true" type="tns:Error" />
+      <s:element name="UpdateCampaignData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="Campaign" nillable="true" type="tns:Campaign" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCampaignData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="Id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCampaignsData">
+    <wsdl:part name="parameters" element="tns:GetCampaignsData" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsData_Headers">
+    <wsdl:part name="Ticket" element="tns:Ticket" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsResponse">
+    <wsdl:part name="Campaigns" element="tns:Campaigns" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignData">
+    <wsdl:part name="parameters" element="tns:CreateCampaignData" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignData_Headers">
+    <wsdl:part name="Ticket" element="tns:Ticket" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignResponse">
+    <wsdl:part name="Campaign" element="tns:Campaign" />
+  </wsdl:message>
+  <wsdl:message name="ICampaignService_CreateCampaign_FaultDetailsFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignData">
+    <wsdl:part name="parameters" element="tns:UpdateCampaignData" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignData_Headers">
+    <wsdl:part name="Ticket" element="tns:Ticket" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignResponse">
+    <wsdl:part name="Campaign" element="tns:Campaign" />
+  </wsdl:message>
+  <wsdl:message name="ICampaignService_UpdateCampaign_FaultDetailsFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCampaignData">
+    <wsdl:part name="parameters" element="tns:DeleteCampaignData" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCampaignData_Headers">
+    <wsdl:part name="Ticket" element="tns:Ticket" />
+  </wsdl:message>
+  <wsdl:message name="ICampaignService_DeleteCampaign_OutputMessage" />
+  <wsdl:message name="ICampaignService_DeleteCampaign_FaultDetailsFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:FaultDetails" />
+  </wsdl:message>
+  <wsdl:portType name="ICampaignService">
+    <wsdl:operation name="GetCampaigns">
+      <wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/GetCampaigns" name="GetCampaignsData" message="tns:GetCampaignsData" />
+      <wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/GetCampaignsResponse" name="GetCampaignsResponse" message="tns:GetCampaignsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaign">
+      <wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/CreateCampaign" name="CreateCampaignData" message="tns:CreateCampaignData" />
+      <wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/CreateCampaignResponse" name="CreateCampaignResponse" message="tns:CreateCampaignResponse" />
+      <wsdl:fault xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/CreateCampaignFaultDetailsFault" name="FaultDetailsFault" message="tns:ICampaignService_CreateCampaign_FaultDetailsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaign">
+      <wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/UpdateCampaign" name="UpdateCampaignData" message="tns:UpdateCampaignData" />
+      <wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/UpdateCampaignResponse" name="UpdateCampaignResponse" message="tns:UpdateCampaignResponse" />
+      <wsdl:fault xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/UpdateCampaignFaultDetailsFault" name="FaultDetailsFault" message="tns:ICampaignService_UpdateCampaign_FaultDetailsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCampaign">
+      <wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/DeleteCampaign" name="DeleteCampaignData" message="tns:DeleteCampaignData" />
+      <wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/DeleteCampaignResponse" message="tns:ICampaignService_DeleteCampaign_OutputMessage" />
+      <wsdl:fault xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsaw:Action="http://www.adform.com/api/2010/06/ICampaignService/DeleteCampaignFaultDetailsFault" name="FaultDetailsFault" message="tns:ICampaignService_DeleteCampaign_FaultDetailsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICampaignService" type="tns:ICampaignService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ICampaignService_policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaigns">
+      <soap:operation soapAction="http://www.adform.com/api/2010/06/ICampaignService/GetCampaigns" style="document" />
+      <wsdl:input name="GetCampaignsData">
+        <soap:header message="tns:GetCampaignsData_Headers" part="Ticket" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaign">
+      <soap:operation soapAction="http://www.adform.com/api/2010/06/ICampaignService/CreateCampaign" style="document" />
+      <wsdl:input name="CreateCampaignData">
+        <soap:header message="tns:CreateCampaignData_Headers" part="Ticket" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetailsFault">
+        <soap:fault use="literal" name="FaultDetailsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaign">
+      <soap:operation soapAction="http://www.adform.com/api/2010/06/ICampaignService/UpdateCampaign" style="document" />
+      <wsdl:input name="UpdateCampaignData">
+        <soap:header message="tns:UpdateCampaignData_Headers" part="Ticket" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetailsFault">
+        <soap:fault use="literal" name="FaultDetailsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCampaign">
+      <soap:operation soapAction="http://www.adform.com/api/2010/06/ICampaignService/DeleteCampaign" style="document" />
+      <wsdl:input name="DeleteCampaignData">
+        <soap:header message="tns:DeleteCampaignData_Headers" part="Ticket" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetailsFault">
+        <soap:fault use="literal" name="FaultDetailsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CampaignService">
+    <wsdl:port name="BasicHttpBinding_ICampaignService" binding="tns:BasicHttpBinding_ICampaignService">
+      <soap:address location="https://api.adform.com/Services/CampaignService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
